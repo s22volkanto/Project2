@@ -10,7 +10,7 @@ class HomeController extends Controller
 	{
 		return view(
 		'home.index',
-		['title' => 'Homepage']
+		['title' => 's22_volkanto']
  		);
 	}
 }
