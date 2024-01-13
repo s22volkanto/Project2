@@ -6,20 +6,31 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-	public function up()
- 		{
- 			Schema::create('books', function (Blueprint $table) {
- 				$table->id();
+    /**
+     * Run the migrations.
+     */
 
- 				$table->foreignId('author_id');
- 				$table->string('name', 256);
- 				$table->text('description')->nullable();
- 				$table->decimal('price', 8, 2)->nullable();
- 				$table->integer('year');
- 				$table->string('image', 256)->nullable();
- 				$table->boolean('display');
+    public function up()
+        {
+        Schema::create('books', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('author_id');
+            $table->string('name', 256);
+            $table->text('description')->nullable();
+            $table->decimal('price', 8, 2)->nullable();
+            $table->integer('year');
+            $table->string('image', 256)->nullable();
+            $table->boolean('display');
+            
+            $table->timestamps();
+        });
+    }
 
- 				$table->timestamps();
- 			});
- 		}
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('books');
+    }
 };
