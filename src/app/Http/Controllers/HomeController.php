@@ -6,11 +6,11 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-   public function index()
-	{
-		return view(
-		'home.index',
-		['title' => 's22_volkanto']
- 		);
-	}
+    
+    public function index()
+    {
+     return view('public', ['title' => 's22volkanto']);
+    }
+    
+
 }
