@@ -2,78 +2,83 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Author;
-use App\Http\Requests\AuthorRequest;
 
 class AuthorController extends Controller
 {
 
-	public function __construct()
-	{
- 		$this->middleware('auth');
-	}
+    // display all authors
+    public function list()
+    {
+        $items = Author::orderBy('name', 'asc')->get();
+        return view(
+            'author.list',
+            [
+            'title' => 'Authors',
+            'items' => $items
+            ]
+        );
+    }
 
-	private function saveAuthorData(Author $author, AuthorRequest $request)
-    	{
-        	$validatedData = $request->validated();
-        	$author->fill($validatedData);
+    // display the form for creating a new author
+    public function create()
+    {
+        return view(
+            'author.form',
+            [
+                'title' => 'Add new author',
+                'author' => new Author()
+            ]
+        );
+    }
 
-        	$author->save();
-    	}
+    // process the request to add a new author
+    public function put(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required',
+        ]);
 
-	public function list()
- 	{
- 		$items = Author::orderBy('name', 'asc')->get();
+        $author = new Author();
+        $author->name = $validatedData['name'];
+        $author->save();
 
- 		return view(
- 			'author.list',
- 			[
- 				'title' => 'Authors',
- 				'items' => $items
- 			]
- 		);
-	 }
+        return redirect('/authors');
+    }
 
-	public function create()
-	{
- 		return view(
- 			'author.form',
- 			[
- 				'title' => 'Add new author',
-				'author' => new Author()
- 			]
- 		);
-	}
+    public function update(Author $author)
+    {
+        return view(
+            'author.form',
+            [
+            'title' => 'Edit author',
+            'author' => $author
+            ]
+        );
+    }
 
-    	public function put(AuthorRequest $request)
-    	{
-        	$author = new Author();
-        	$this->saveAuthorData($author, $request);
-        	return redirect('/authors');
-    	}
+    public function patch(Author $author, Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required',
+        ]);
 
-	public function update(Author $author)
-	{
- 		return view(
- 			'author.form',
- 			[
- 				'title' => 'Edit author',
- 				'author' => $author
- 			]
- 		);
-	}
+        $author->name = $validatedData['name'];
+        $author->save();
+        
+        return redirect('/authors');
+    }
 
-    	public function patch(Author $author, AuthorRequest $request)
-    	{
-        	$this->saveAuthorData($author, $request);
-        	return redirect('/authors');
-    	}
-	
-	public function delete(Author $author)
-	{
- 		$author->delete();
- 		return redirect('/authors');
-	}
+    public function delete(Author $author)
+    {
+    $author->delete();
+    return redirect('/authors');
+    }
 
-		
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
 }
