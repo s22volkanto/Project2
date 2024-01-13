@@ -6,16 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-public function up()
- {
- Schema::create('authors', function (Blueprint $table) {
- $table->id();
- $table->string('name', 256);
- $table->timestamps();
- });
- }
- public function down()
- {
- Schema::dropIfExists('authors');
- }
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('authors', function (Blueprint $table) {
+            $table->id();
+            $table->string('name', 256);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('authors');
+    }
 };
