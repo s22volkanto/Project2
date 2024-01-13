@@ -31,12 +31,26 @@
 					<li class="nav-item">
 						<a class="nav-link" href="/">Home</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="/authors">Authors</a>
-					</li>
-					<li class="nav-item">
- 						<a class="nav-link" href="/books">Books</a>
-					</li>
+
+					@if(Auth::check())
+
+						<li class="nav-item">
+							<a class="nav-link" href="/authors">Authors</a>
+						</li>
+						<li class="nav-item">
+ 							<a class="nav-link" href="/books">Books</a>
+						</li>
+						<li class="nav-item">
+ 							<a class="nav-link" href="/logout">Log out</a>
+ 						</li>
+
+					@else
+
+						<li class="nav-item">
+ 							<a class="nav-link" href="/login">Log in</a>
+ 						</li>
+
+					@endif
 
 				</ul>
 			</div>
