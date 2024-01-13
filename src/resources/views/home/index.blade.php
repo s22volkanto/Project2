@@ -1,4 +1,6 @@
 @extends('layout')
+
 @section('content')
- <h1>Hello, world!</h1>
-@endsection
+    <h1></h1>
+
+ @endsection
